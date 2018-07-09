@@ -1,0 +1,391 @@
+%
+% This is file 'jcounter.sty'.
+%
+
+%% package declaration
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{jcounter}[2018/07/06 v0.3]
+\def\mk@pkgname{jcounter}
+
+
+%--------------------------------------- 漢数字
+\def\Jkan@kurai@iti#1{%
+\newcount\kan@suji
+\newcount\kan@sen
+\newcount\kan@sen@sen
+\newcount\kan@hyaku
+\newcount\kan@hyaku@hyaku
+\newcount\kan@juu
+\newcount\kan@juu@juu
+\newcount\kan@iti
+\newcount\kan@iti@iti
+%%%%%%%%%%
+%%%%%%%%%%
+\kan@suji = #1
+\kan@sen = #1
+\kan@sen@sen = #1
+\divide\kan@sen by 1000
+\divide\kan@sen@sen by 1000
+\multiply\kan@sen@sen by 1000
+\advance\kan@suji by -\kan@sen@sen
+\ifcase\kan@sen\or
+千\or
+二千\or
+三千\or
+四千\or
+五千\or
+六千\or
+七千\or
+八千\or
+九千\or\else\relax\fi
+%%%%%%%%%
+%%%%%%%%%
+\kan@hyaku = \kan@suji
+\kan@hyaku@hyaku = \kan@suji
+\divide\kan@hyaku by 100
+\divide\kan@hyaku@hyaku by 100
+\multiply\kan@hyaku@hyaku by 100
+\advance\kan@suji by -\kan@hyaku@hyaku
+\ifcase\kan@hyaku \or
+百\or
+二百\or
+三百\or
+四百\or
+五百\or
+六百\or
+七百\or
+八百\or
+九百\or\else\relax\fi
+%%%%%%%%%
+%%%%%%%%%
+\kan@juu = \kan@suji
+\kan@juu@juu = \kan@suji
+\divide\kan@juu by 10
+\divide\kan@juu@juu by 10
+\multiply\kan@juu@juu by 10
+\advance\kan@suji by -\kan@juu@juu
+\ifcase\kan@juu \or
+十\or
+二十\or
+三十\or
+四十\or
+五十\or
+六十\or
+七十\or
+八十\or
+九十\or\else\relax\fi%
+%%%%%%%%%
+%%%%%%%%%
+\kan@iti = \kan@suji
+\kan@iti@iti = \kan@suji
+\divide\kan@iti by 1
+\divide\kan@iti@iti by 1
+\multiply\kan@iti@iti by 1
+\advance\kan@suji by -\kan@iti@iti
+\ifcase\kan@iti \or
+一\or
+二\or
+三\or
+四\or
+五\or
+六\or
+七\or
+八\or
+九\or\else\relax\fi}
+
+\def\Jkan@kurai@man#1{%
+\newcount\kan@man@syou
+\newcount\kan@man@amari@iti
+\newcount\kan@man@suji
+\newcount\kan@man@suji@suji
+\newcount\kan@man@sen
+\newcount\kan@man@sen@sen
+\newcount\kan@man@hyaku
+\newcount\kan@man@hyaku@hyaku
+\newcount\kan@man@juu
+\newcount\kan@man@juu@juu
+\newcount\kan@man@iti
+\newcount\kan@man@iti@iti
+%%%%%%%%%%
+%%%%%%%%%%
+\kan@man@suji = #1
+\kan@man@amari@iti = #1
+\kan@man@suji@suji = #1
+\divide\kan@man@suji by 10000
+\divide\kan@man@suji@suji by 10000
+\multiply\kan@man@suji@suji by 10000
+\advance\kan@man@amari@iti by -\kan@man@suji@suji
+%%%%%%%%%%
+\kan@man@sen = \kan@man@suji
+\kan@man@sen@sen = \kan@man@suji
+%%%%%%%%%%
+\divide\kan@man@sen by 1000
+\divide\kan@man@sen@sen by 1000
+\multiply\kan@man@sen@sen by 1000
+\advance\kan@man@suji by -\kan@man@sen@sen
+\advance\kan@man@syou by \kan@man@sen
+\ifcase\kan@man@sen \or
+千\or
+二千\or
+三千\or
+四千\or
+五千\or
+六千\or
+七千\or
+八千\or
+九千\or\else\relax\fi
+%%%%%%%%%
+%%%%%%%%%
+\kan@man@hyaku = \kan@man@suji
+\kan@man@hyaku@hyaku = \kan@man@suji
+\divide\kan@man@hyaku by 100
+\divide\kan@man@hyaku@hyaku by 100
+\multiply\kan@man@hyaku@hyaku by 100
+\advance\kan@man@suji by -\kan@man@hyaku@hyaku
+\advance\kan@man@syou by \kan@man@hyaku
+\ifcase\kan@man@hyaku \or
+百\or
+二百\or
+三百\or
+四百\or
+五百\or
+六百\or
+七百\or
+八百\or
+九百\or\else\relax\fi
+%%%%%%%%%
+%%%%%%%%%
+\kan@man@juu = \kan@man@suji
+\kan@man@juu@juu = \kan@man@suji
+\divide\kan@man@juu by 10
+\divide\kan@man@juu@juu by 10
+\multiply\kan@man@juu@juu by 10
+\advance\kan@man@suji by -\kan@man@juu@juu
+\advance\kan@man@syou by \kan@man@juu
+\ifcase\kan@man@juu \or
+十\or
+二十\or
+三十\or
+四十\or
+五十\or
+六十\or
+七十\or
+八十\or
+九十\or\else\relax\fi%
+%%%%%%%%%
+%%%%%%%%%
+\kan@man@iti = \kan@man@suji
+\kan@man@iti@iti = \kan@man@suji
+\divide\kan@man@iti by 1
+\divide\kan@man@iti@iti by 1
+\multiply\kan@man@iti@iti by 1
+\advance\kan@man@suji by -\kan@man@iti@iti
+\advance\kan@man@syou by \kan@man@iti
+\ifcase\kan@man@iti \ifnum\kan@man@syou = 0\else 万\fi\or
+一万\or
+二万\or
+三万\or
+四万\or
+五万\or
+六万\or
+七万\or
+八万\or
+九万\or\else\relax\fi%
+\Jkan@kurai@iti{\the\kan@man@amari@iti}}
+
+\def\Jkan@kurai@oku#1{%
+\newcount\kan@oku@syou
+\newcount\kan@oku@amari@iti
+\newcount\kan@oku@suji
+\newcount\kan@oku@suji@suji
+\newcount\kan@oku@sen
+\newcount\kan@oku@sen@sen
+\newcount\kan@oku@hyaku
+\newcount\kan@oku@hyaku@hyaku
+\newcount\kan@oku@juu
+\newcount\kan@oku@juu@juu
+\newcount\kan@oku@iti
+\newcount\kan@oku@iti@iti
+%%%%%%%%%%
+%%%%%%%%%%
+\kan@oku@suji = #1
+\kan@oku@amari@iti = #1
+\kan@oku@suji@suji = #1
+\divide\kan@oku@suji by 100000000
+\divide\kan@oku@suji@suji by 100000000
+\multiply\kan@oku@suji@suji by 100000000
+\advance\kan@oku@amari@iti by -\kan@oku@suji@suji
+%%%%%%%%%%
+\kan@oku@sen = \kan@oku@suji
+\kan@oku@sen@sen = \kan@oku@suji
+%%%%%%%%%%
+\divide\kan@oku@sen by 1000
+\divide\kan@oku@sen@sen by 1000
+\multiply\kan@oku@sen@sen by 1000
+\advance\kan@oku@suji by -\kan@oku@sen@sen
+\advance\kan@oku@syou by \kan@oku@sen
+\ifcase\kan@oku@sen \or
+千\or
+二千\or
+三千\or
+四千\or
+五千\or
+六千\or
+七千\or
+八千\or
+九千\or\else\relax\fi
+%%%%%%%%%
+%%%%%%%%%
+\kan@oku@hyaku = \kan@oku@suji
+\kan@oku@hyaku@hyaku = \kan@oku@suji
+\divide\kan@oku@hyaku by 100
+\divide\kan@oku@hyaku@hyaku by 100
+\multiply\kan@oku@hyaku@hyaku by 100
+\advance\kan@oku@suji by -\kan@oku@hyaku@hyaku
+\advance\kan@oku@syou by \kan@oku@hyaku
+\ifcase\kan@oku@hyaku \or
+百\or
+二百\or
+三百\or
+四百\or
+五百\or
+六百\or
+七百\or
+八百\or
+九百\or\else\relax\fi
+%%%%%%%%%
+%%%%%%%%%
+\kan@oku@juu = \kan@oku@suji
+\kan@oku@juu@juu = \kan@oku@suji
+\divide\kan@oku@juu by 10
+\divide\kan@oku@juu@juu by 10
+\multiply\kan@oku@juu@juu by 10
+\advance\kan@oku@suji by -\kan@oku@juu@juu
+\advance\kan@oku@syou by \kan@oku@juu
+\ifcase\kan@oku@juu \or
+十\or
+二十\or
+三十\or
+四十\or
+五十\or
+六十\or
+七十\or
+八十\or
+九十\or\else\relax\fi%
+%%%%%%%%%
+%%%%%%%%%
+\kan@oku@iti = \kan@oku@suji
+\kan@oku@iti@iti = \kan@oku@suji
+\divide\kan@oku@iti by 1
+\divide\kan@oku@iti@iti by 1
+\multiply\kan@oku@iti@iti by 1
+\advance\kan@oku@suji by -\kan@oku@iti@iti
+\advance\kan@oku@syou by \kan@oku@iti
+\ifcase\kan@oku@iti \ifnum\kan@oku@syou = 0 \else 億\fi\or
+一億\or
+二億\or
+三億\or
+四億\or
+五億\or
+六億\or
+七億\or
+八億\or
+九億\or\else\relax\fi%
+\Jkan@kurai@man{\the\kan@oku@amari@iti}}
+
+%--------------------------------------- 全角数字
+\count@\z@
+
+\@tfor\temp:=０１２３４５６７８９\do{%
+\expandafter\edef\csname zen@\the\count@\endcsname{\temp}%
+\advance\count@\@ne
+}
+
+\def\kan@zenkakusuji#1{%
+\edef\@arg{#1}%
+\let\@temp\@empty
+\expandafter\@tfor\expandafter\Num\expandafter:\expandafter=\@arg\do{\edef\@temp{\@temp\@nameuse{zen@\Num}}}%
+\@temp
+}
+
+%--------------------------------------- イロハ
+\def\kan@iroha#1{%
+  \ifcase#1 \or イ\or ロ\or ハ\or ニ\or ホ\or ヘ\or ト
+\or チ\or リ\or ヌ\or ル\or ヲ\or ワ\or カ\or ヨ
+\or タ\or レ\or ソ\or ツ\or ネ\or ナ\or ラ\or ム
+\or ウ\or ヰ\or ノ\or オ\or ク\or ヤ\or マ
+\or ケ\or フ\or コ\or エ\or テ
+\or ア\or サ\or キ\or ユ\or メ\or ミ\or シ\or ヱ\or ヒ\or モ\or セ\or ス
+\or ン \else\@ctrerr\fi\relax}
+
+%--------------------------------------- いろは
+\def\kan@IROHA#1{%
+  \ifcase#1 \or い\or ろ\or は\or に\or ほ\or へ\or と
+\or ち\or り\or ぬ\or る\or を\or わ\or か\or よ
+\or た\or れ\or そ\or つ\or ね\or な\or ら\or む
+\or う\or ゐ\or の\or お\or く\or や\or ま\or け\or ふ\or こ\or え\or て
+\or あ\or さ\or き\or ゆ\or め\or み\or し\or ゑ\or ひ\or も\or せ\or す
+\or ん \else\@ctrerr\fi\relax}
+
+%--------------------------------------- カタカナ
+\def\kan@katakana#1{%
+  \ifcase#1 \or ア\or イ\or ウ\or エ\or オ\or カ\or キ
+\or ク\or ケ\or コ\or サ\or シ\or ス\or セ\or ソ
+\or タ\or チ\or ツ\or テ\or ト\or ナ\or ニ\or ヌ
+\or ネ\or ノ\or ハ\or ヒ\or フ\or ヘ\or ホ\or マ\or ミ\or ム\or メ\or モ
+ヤ\or ユ\or ヨ\or ラ\or リ\or ル\or レ\or ロ\or ワ\or ヲ\or ン\else\@ctrerr\fi\relax}
+
+%--------------------------------------- ひらがな
+\def\kan@hiragana#1{%
+  \ifcase#1 \or あ\or い\or う\or え\or お\or か\or き
+\or く\or け\or こ\or さ\or し\or す\or せ\or そ
+\or た\or ち\or つ\or て\or と\or な\or に\or ぬ
+\or ね\or の\or は\or ひ\or ふ\or へ\or ほ\or ま\or み\or む\or め\or も
+や\or ゆ\or よ\or ら\or り\or る\or れ\or ろ\or わ\or を\or ん\else\@ctrerr\fi\relax}
+
+%--------------------------------------- 甲乙
+\def\kan@kouotu#1{%
+  \ifcase#1 \or 甲\or 乙\or 丙\or 丁\or 戊\or 己\or 庚\or 辛
+  \or 壬\or 癸\else\@ctrerr\fi\relax}
+
+%--------------------------------------- 十二支
+\def\kan@zyunisi#1{%
+  \ifcase#1 \or 子\or 丑\or 寅\or 卯\or 辰\or 巳\or 午\or 未
+  \or 申\or 酉\or 戌\or 亥\else\@ctrerr\fi\relax}
+
+%--------------------------------------- 干支
+\def\kan@eto#1{%
+\newcount\kan@eto@suji@juu
+\newcount\kan@eto@suji@juuni
+\newcount\kan@eto@juu
+\newcount\kan@eto@juuni
+\kan@eto@suji@juu = #1
+\kan@eto@suji@juuni = #1
+\kan@eto@juu = #1
+\kan@eto@juuni = #1
+%\divide\kan@eto@juu by 10
+\divide\kan@eto@suji@juu by 10
+\multiply\kan@eto@suji@juu by 10
+\advance\kan@eto@juu by -\kan@eto@suji@juu
+\divide\kan@eto@suji@juuni by 12
+\multiply\kan@eto@suji@juuni by 12
+\advance\kan@eto@juuni by -\kan@eto@suji@juuni
+\ifcase\kan@eto@juu  癸\or 甲\or 乙\or 丙\or 丁\or 戊\or 己\or 庚\or 辛
+\or 壬\else\@ctrerr\fi\relax
+\ifcase\kan@eto@juuni 亥\or 子\or 丑\or 寅\or 卯\or 辰\or 巳\or 午\or 未
+\or 申\or 酉\or 戌\else\@ctrerr\fi\relax}
+
+
+\newcommand*{\jkansuji}[1]{\Jkan@kurai@oku{#1}}
+\newcommand*{\jzenkakusuji}[1]{\kan@zenkakusuji{#1}}
+\newcommand*{\jiroha}[1]{\kan@iroha{#1}}
+\newcommand*{\jIROHA}[1]{\kan@IROHA{#1}}
+\newcommand*{\jkatakana}[1]{\kan@katakana{#1}}
+\newcommand*{\jhiragana}[1]{\kan@hiragana{#1}}
+\newcommand*{\jkouotu}[1]{\kan@kouotu{#1}}
+\newcommand*{\jzyunisi}[1]{\kan@zyunisi{#1}}
+\newcommand*{\jeto}[1]{\kan@eto{#1}}
+
+%--------------------------------------- all done
+\endinput
+%% EOF

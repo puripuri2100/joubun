@@ -1,9 +1,6 @@
 # これはなに
 規則案をLaTeXで作成するのを支援するパッケージです。
 
-~~# `Jkansuji.sty`ってなに？~~
-~~`joubun.sty`では漢数字を必要としますので、漢数字を出力するマクロが必要になりました。そこで作成しました。このパッケージは`joubun.sty`に必要です。~~
-
 # jcounter.sty
 これは漢数字やイロハなどを出力するパッケージで、[GitHub上](https://github.com/puripuri2100/Jcounter)で管理されています。
 joubun.styに必須です。

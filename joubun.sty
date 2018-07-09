@@ -1,58 +1,70 @@
 \ProvidesPackage{joubun}[2018/02/07]
-\NeedsTeXFormat{pLaTeX2e}
+\NeedsTeXFormat{LaTeX2e}
 \RequirePackage{jcounter}
 \RequirePackage{enumitem}
 \RequirePackage{ifthen}
 \RequirePackage{ifxetex,ifluatex,ifluatex}
-
+\ifthenelse{\boolean{xetex}}{
+  % XeLaTeXでは\zw
+  \newcommand*{\myzw}{\zw}
+}{\ifthenelse{\boolean{luatex}}{
+  % LuaLaTeXでは\zw
+  \newcommand*{\myzw}{\zw}
+}{\ifthenelse{\boolean{upTeX}}{
+  % upLaTeXではzw
+  \newcommand*{\myzw}{zw}
+}{%else (pLaTeXと仮定する)
+  % pLaTeXではzw
+  \newcommand*{\myzw}{zw}
+}}}
 
 %------------------hen
 \newcounter{hen}
 \setcounter{hen}{0}
-\newcommand{\@thehen}{\Jkansuji\thehen}
-\newcommand{\hen}[1]{\refstepcounter{hen}\par\vskip1zh\noindent{\hspace{5zw}第{\@thehen}編\hspace{1zw}{#1}}
+\newcommand{\@thehen}{\jkansuji\thehen}
+\newcommand{\hen}[1]{\refstepcounter{hen}\par\vskip1\myzw\noindent{\hspace{5\myzw}第{\@thehen}編\hspace{1\myzw}{#1}}
 \setcounter{edahen}{1}\par}
 
 %------------------syou
 \newcounter{syou}[hen]
 \setcounter{syou}{1}
-\newcommand{\@thesyou}{\Jkansuji\thesyou}
-\newcommand{\syou}[1]{\refstepcounter{syou}\par\vskip1zh\noindent{\hspace{4zw}第{\@thesyou}章\hspace{1zw}{#1}}
+\newcommand{\@thesyou}{\jkansuji\thesyou}
+\newcommand{\syou}[1]{\refstepcounter{syou}\par\vskip1\myzw\noindent{\hspace{4\myzw}第{\@thesyou}章\hspace{1\myzw}{#1}}
 \setcounter{edasyou}{1}\par}
 
 %------------------setu
 \newcounter{setu}[syou]
 \setcounter{setu}{1}
-\newcommand{\@thesetu}{\Jkansuji\thesetu}
-\newcommand{\setu}[1]{\refstepcounter{setu}\par\vskip1zh\noindent{\hspace{3zw}第{\@thesetu}節\hspace{1zw}{#1}}
+\newcommand{\@thesetu}{\jkansuji\thesetu}
+\newcommand{\setu}[1]{\refstepcounter{setu}\par\vskip1\myzw\noindent{\hspace{3\myzw}第{\@thesetu}節\hspace{1\myzw}{#1}}
 \setcounter{edasetu}{1}\par}
 
 %------------------kan
 \newcounter{kan}[setu]
 \setcounter{kan}{1}
-\newcommand{\@thekan}{\Jkansuji\thekan}
-\newcommand{\kan}[1]{\refstepcounter{kan}\par\vskip1zh\noindent {\hspace{2zw}第{\@thekan}款\hspace{1zw}{#1}}
+\newcommand{\@thekan}{\jkansuji\thekan}
+\newcommand{\kan}[1]{\refstepcounter{kan}\par\vskip1\myzw\noindent {\hspace{2\myzw}第{\@thekan}款\hspace{1\myzw}{#1}}
 \setcounter{edakan}{1}\par}
 
 %------------------moku
 \newcounter{moku}[kan]
 \setcounter{moku}{1}
-\newcommand{\@themoku}{\Jkansuji\themoku}
-\newcommand{\moku}[1]{\refstepcounter{moku}\par\vskip1zh\noindent{\hspace{1zw}第{\@themoku}目\hspace{1zw}{#1}}
+\newcommand{\@themoku}{\jkansuji\themoku}
+\newcommand{\moku}[1]{\refstepcounter{moku}\par\vskip1\myzw\noindent{\hspace{1\myzw}第{\@themoku}目\hspace{1\myzw}{#1}}
 \setcounter{edamoku}{1}\par}
 
 %------------------jou
 \newcounter{jou}
 \setcounter{jou}{0}
-\newcommand{\@thejou}{\Jkansuji\thejou}
-\newcommand{\jou}[2][\vskip -2zh]{\par\vskip 1zh\noindent\hspace{2.5zw} #1%
-\vskip 0zh%（）と◯条の間の距離を詰める
+\newcommand{\@thejou}{\jkansuji\thejou}
+\newcommand{\jou}[2][\vskip -2\myzw]{\par\vskip 1\myzw\noindent\hspace{2.5\myzw} #1%
+\vskip 0\myzw%（）と◯条の間の距離を詰める
 \refstepcounter{jou}%
-{    \leftmargin=1zw
+{    \leftmargin=1\myzw
     \labelwidth=\leftmargin
-    \setlength{\labelsep}{1zw}
+    \setlength{\labelsep}{1\myzw}
     \advance \labelwidth by -\labelsep
-    \vskip 0zh%宣言することで（）と◯条の間の距離を詰める
+    \vskip 0\myzw%宣言することで（）と◯条の間の距離を詰める
 \begin{list}{{第{\@thejou}条}}
 \item #2
 \end{list}}
@@ -61,30 +73,30 @@
 %------------------kou
 
 \newcounter{kou}[jou]
-\newcommand{\@thekou}{\zenkakusuji\thekou}
+\newcommand{\@thekou}{\jzenkakusuji\thekou}
 \newcommand{\kou}[1]{
 \refstepcounter{kou}\par\noindent
-{   \leftmargin=0zw
+{   \leftmargin=0\myzw
     \labelwidth=\leftmargin
-    \setlength{\labelsep}{1zw}
+    \setlength{\labelsep}{1\myzw}
     \advance \labelwidth by -\labelsep
-\begin{list}{\hspace{-1zw}{\@thekou}}
+\begin{list}{\hspace{-1\myzw}{\@thekou}}
 \item #1
 \end{list}}}
 
 %------------------gou
 
 \newcounter{gou}[jou]
-\newcommand{\@thegou}{\Jkansuji\thegou}
+\newcommand{\@thegou}{\jkansuji\thegou}
 \newcommand{\gou}[1]{
 {\refstepcounter{gou}}
-\vskip 0zh
- { \leftmargin=1zw
-    \labelwidth=1zw
-    \setlength{\labelsep}{1zw}
+\vskip 0\myzw
+ { \leftmargin=1\myzw
+    \labelwidth=1\myzw
+    \setlength{\labelsep}{1\myzw}
     \advance \labelwidth by -\labelsep
 
-\begin{list}{{\hspace{0zw}\@thegou}}
+\begin{list}{{\hspace{0\myzw}\@thegou}}
 %\setlength{\leftskip}{5zw}
 \item #1
 \end{list}}}
@@ -92,82 +104,82 @@
 %------------------edajou
 \newcounter{edajou}[jou]
 \setcounter{edajou}{1}
-\newcommand{\@theedajou}{\Jkansuji\theedajou}
+\newcommand{\@theedajou}{\jkansuji\theedajou}
 
-\newcommand{\edajou}[2][\vskip -2zh]{\par\vskip 1zh\noindent\hspace{2.5zw} #1%
-\vskip 0zh%（）と◯条の間の距離を詰める
+\newcommand{\edajou}[2][\vskip -2\myzw]{\par\vskip 1\myzw\noindent\hspace{2.5\myzw} #1%
+\vskip 0\myzw%（）と◯条の間の距離を詰める
 \refstepcounter{edajou}%
-{    \leftmargin=1zw
+{    \leftmargin=1\myzw
     \labelwidth=\leftmargin
-    \labelsep=1zw
+    \labelsep=1\myzw
     \advance \labelwidth by -\labelsep
-    \setlength{\labelsep}{1zw}
-    \vskip 0zh
+    \setlength{\labelsep}{1\myzw}
+    \vskip 0\myzw
 \begin{list}{第{\@thejou}条の\@theedajou}
 \item #2
 \end{list}}}
 %------------------edahen
 \newcounter{edahen}[hen]
 \setcounter{edahen}{1}
-\newcommand{\@theedahen}{\Jkansuji\theedahen}
-\newcommand{\edahen}[1]{\par\vskip1zh\noindent{\hspace{5zw}第{\@thehen}編の\@theedahen%
-\hspace{1zw}\refstepcounter{edahen}{#1}}\vskip1zh}
+\newcommand{\@theedahen}{\jkansuji\theedahen}
+\newcommand{\edahen}[1]{\par\vskip1\myzw\noindent{\hspace{5\myzw}第{\@thehen}編の\@theedahen%
+\hspace{1\myzw}\refstepcounter{edahen}{#1}}\vskip1\myzw}
 
 %------------------edasyou
 \newcounter{edasyou}[syou]
 \setcounter{edasyou}{1}
-\newcommand{\@theedasyou}{\Jkansuji\theedasyou
+\newcommand{\@theedasyou}{\jkansuji\theedasyou
 }
-\newcommand{\edasyou}[1]{\par\vskip1zh\noindent{\hspace{5zw}第{\@thesyou}編の\@theedasyou%
-\hspace{1zw}\refstepcounter{edasyou}{#1}}\vskip1zh}
+\newcommand{\edasyou}[1]{\par\vskip1\myzw\noindent{\hspace{5\myzw}第{\@thesyou}編の\@theedasyou%
+\hspace{1\myzw}\refstepcounter{edasyou}{#1}}\vskip1\myzw}
 
 %------------------edasetu
 \newcounter{edasetu}[setu]
 \setcounter{edasetu}{1}
-\newcommand{\@theedasetu}{\Jkansuji\theedasetu}
-\newcommand{\edasetu}[1]{\par\vskip1zh\noindent{\hspace{5zw}第{\@thesetu}編の\@theedasetu%
-\hspace{1zw}\refstepcounter{edasetu}{#1}}\vskip1zh}
+\newcommand{\@theedasetu}{\jkansuji\theedasetu}
+\newcommand{\edasetu}[1]{\par\vskip1\myzw\noindent{\hspace{5\myzw}第{\@thesetu}編の\@theedasetu%
+\hspace{1\myzw}\refstepcounter{edasetu}{#1}}\vskip1\myzw}
 
 %------------------edakan
 \newcounter{edakan}[kan]
 \setcounter{edakan}{1}
-\newcommand{\@theedakan}{\Jkansuji\theedakan}
-\newcommand{\edakan}[1]{\par\vskip1zh\noindent{\hspace{5zw}第{\@thekan}編の\@theedakan%
-\hspace{1zw}\refstepcounter{edakan}{#1}}\vskip1zh}
+\newcommand{\@theedakan}{\jkansuji\theedakan}
+\newcommand{\edakan}[1]{\par\vskip1\myzw\noindent{\hspace{5\myzw}第{\@thekan}編の\@theedakan%
+\hspace{1\myzw}\refstepcounter{edakan}{#1}}\vskip1\myzw}
 
 %------------------edamoku
 \newcounter{edamoku}[moku]
 \setcounter{edamoku}{1}
-\newcommand{\@theedamoku}{\Jkansuji\theedamoku}
-\newcommand{\edamoku}[1]{\par\vskip1zh\noindent{\hspace{5zw}第{\@themoku}編の\@theedamoku%
-\hspace{1zw}\refstepcounter{edamoku}{#1}}\vskip1zh}
+\newcommand{\@theedamoku}{\jkansuji\theedamoku}
+\newcommand{\edamoku}[1]{\par\vskip1\myzw\noindent{\hspace{5\myzw}第{\@themoku}編の\@theedamoku%
+\hspace{1\myzw}\refstepcounter{edamoku}{#1}}\vskip1\myzw}
 
 %------------------edakou
 
 \newcounter{edakou}[jou]
-\newcommand{\@theedakou}{\zenkakusuji\theedakou}
+\newcommand{\@theedakou}{\jzenkakusuji\theedakou}
 \newcommand{\edakou}[1]{
 \refstepcounter{kou}\par\noindent
-{   \leftmargin=0zw
+{   \leftmargin=0\myzw
     \labelwidth=\leftmargin
-    \setlength{\labelsep}{1zw}
+    \setlength{\labelsep}{1\myzw}
     \advance \labelwidth by -\labelsep
-\begin{list}{\hspace{-1zw}{\@thekou}の\@theedakou}
+\begin{list}{\hspace{-1\myzw}{\@thekou}の\@theedakou}
 \item #1
 \end{list}}}
 
 %------------------edagou
 
 \newcounter{edagou}[jou]
-\newcommand{\@theedagou}{\Jkansuji\theedagou}
+\newcommand{\@theedagou}{\jkansuji\theedagou}
 \newcommand{\edagou}[1]{
 {\refstepcounter{edagou}}
-\vskip 0zh
- {   \leftmargin=1zw
+\vskip 0\myzw
+ {   \leftmargin=1\myzw
     \labelwidth=\leftmargin
-    \setlength{\labelsep}{1zw}
+    \setlength{\labelsep}{1\myzw}
     \advance \labelwidth by -\labelsep
-\begin{list}{{\hspace{1zw}\@thegouの\@theedagou}}
+\begin{list}{{\hspace{1\myzw}\@thegouの\@theedagou}}
 \item #1
 \end{list}}}
 
@@ -176,21 +188,21 @@
 \refstepcounter{#1}\par}
 
 %--------------------------------husoku
-\newenvironment{husoku}{\setcounter{kou}{0}\setcounter{jou}{0}\begingroup\par \noindent \vskip 1zh {\hspace{0zw}附則}\par }
+\newenvironment{husoku}{\setcounter{kou}{0}\setcounter{jou}{0}\begingroup\par \noindent \vskip 1\myzw {\hspace{0\myzw}附則}\par }
 {\endgroup\par}
 %--------------------------------mokuji
 
 \newcommand{\renew@mokuji@name}{%
-\renewcommand{\hen}[1]{\refstepcounter{hen}\par\noindent{\hspace{0zw}第{\@thehen}編\hspace{1zw}{##1}}\setcounter{edahen}{1}\par}
-\renewcommand{\syou}[1]{\refstepcounter{syou}\par\noindent{\hspace{1zw}第{\@thesyou}章\hspace{1zw}{##1}}\setcounter{edasyou}{1}\par}
-\renewcommand{\setu}[1]{\refstepcounter{setu}\par\noindent{\hspace{2zw}第{\@thesetu}節\hspace{1zw}{##1}}\setcounter{edasetu}{1}\par}
-\renewcommand{\kan}[1]{\refstepcounter{kan}\par\noindent{\hspace{3zw}第{\@thekan}款\hspace{1zw}{##1}}\setcounter{edakan}{1}\par}
-\renewcommand{\moku}[1]{\refstepcounter{moku}\par\noindent{\hspace{4zw}第{\@themoku}目\hspace{1zw}{##1}}\setcounter{edamoku}{1}\par}
-\renewcommand{\edahen}[1]{\refstepcounter{edahen}\par\noindent{\hspace{0zw}第{\@thehen}編の\@theedahen\hspace{1zw}{##1}}\par}
-\renewcommand{\edasyou}[1]{\refstepcounter{edasyou}\par\noindent{\hspace{1zw}第{\@thehen}章の\@theedasyou\hspace{1zw}{##1}}\par}
-\renewcommand{\edasetu}[1]{\refstepcounter{edasetu}\par\noindent{\hspace{2zw}第{\@thesetu}節の\@theedasetu\hspace{1zw}{##1}}\par}
-\renewcommand{\edakan}[1]{\refstepcounter{edakan}\par\noindent{\hspace{3zw}第{\@thekan}款の\@theedakan\hspace{1zw}{##1}}\par}
-\renewcommand{\edamoku}[1]{\refstepcounter{edamoku}\par\noindent{\hspace{4zw}第{\@themoku}目の\@theedamoku\hspace{1zw}{##1}}\par}
+\renewcommand{\hen}[1]{\refstepcounter{hen}\par\noindent{\hspace{0\myzw}第{\@thehen}編\hspace{1\myzw}{##1}}\setcounter{edahen}{1}\par}
+\renewcommand{\syou}[1]{\refstepcounter{syou}\par\noindent{\hspace{1\myzw}第{\@thesyou}章\hspace{1\myzw}{##1}}\setcounter{edasyou}{1}\par}
+\renewcommand{\setu}[1]{\refstepcounter{setu}\par\noindent{\hspace{2\myzw}第{\@thesetu}節\hspace{1\myzw}{##1}}\setcounter{edasetu}{1}\par}
+\renewcommand{\kan}[1]{\refstepcounter{kan}\par\noindent{\hspace{3\myzw}第{\@thekan}款\hspace{1\myzw}{##1}}\setcounter{edakan}{1}\par}
+\renewcommand{\moku}[1]{\refstepcounter{moku}\par\noindent{\hspace{4\myzw}第{\@themoku}目\hspace{1\myzw}{##1}}\setcounter{edamoku}{1}\par}
+\renewcommand{\edahen}[1]{\refstepcounter{edahen}\par\noindent{\hspace{0\myzw}第{\@thehen}編の\@theedahen\hspace{1\myzw}{##1}}\par}
+\renewcommand{\edasyou}[1]{\refstepcounter{edasyou}\par\noindent{\hspace{1\myzw}第{\@thehen}章の\@theedasyou\hspace{1\myzw}{##1}}\par}
+\renewcommand{\edasetu}[1]{\refstepcounter{edasetu}\par\noindent{\hspace{2\myzw}第{\@thesetu}節の\@theedasetu\hspace{1\myzw}{##1}}\par}
+\renewcommand{\edakan}[1]{\refstepcounter{edakan}\par\noindent{\hspace{3\myzw}第{\@thekan}款の\@theedakan\hspace{1\myzw}{##1}}\par}
+\renewcommand{\edamoku}[1]{\refstepcounter{edamoku}\par\noindent{\hspace{4\myzw}第{\@themoku}目の\@theedamoku\hspace{1\myzw}{##1}}\par}
 \renewcommand{\husoku}{\par\noindent 附則\par}
 }
 

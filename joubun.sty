@@ -1,38 +1,11 @@
 \ProvidesPackage{joubun}[2018/02/07]
 \NeedsTeXFormat{pLaTeX2e}
-\RequirePackage{Jkansuji}
+\RequirePackage{jcounter}
+\RequirePackage{enumitem}
+\RequirePackage{ifthen}
+\RequirePackage{ifxetex,ifluatex,ifluatex}
 
-%-----------------kanji
-%Jkansujiパッケージにより補完
- 
-%-----------------zenkaku
 
-\count@\z@
-
-\@tfor\temp:=０１２３４５６７８９\do{%
-\expandafter\edef\csname zen@\the\count@\endcsname{\temp}%
-\advance\count@\@ne
-}
-
-\DeclareRobustCommand{\zenkakusuji}[1]{%
-\edef\@arg{#1}%
-\let\@temp\@empty
-\expandafter\@tfor\expandafter\Num\expandafter:\expandafter=\@arg\do{%
-\edef\@temp{\@temp\@nameuse{zen@\Num}}%
-}%
-\@temp
-}
-
-%-----------------イロハ
-
-\def\iroha#1{%
-  \ifcase#1 \or イ\or ロ\or ハ\or ニ\or ホ\or ヘ\or ト
-\or チ\or リ\or ヌ\or ル\or ヲ\or ワ\or カ\or ヨ
-\or タ\or レ\or ソ\or ツ\or ネ\or ナ\or ラ\or ム
-\or ウ\or ヰ\or ノ\or オ\or ク\or ヤ\or マ
-\or ケ\or フ\or コ\or エ\or テ
-\or ア\or サ\or キ\or ユ\or メ\or ミ\or シ\or ヱ\or ヒ\or モ\or セ\or ス
-\or ン \else\@ctrerr\fi\relax}
 %------------------hen
 \newcounter{hen}
 \setcounter{hen}{0}

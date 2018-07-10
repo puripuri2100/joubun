@@ -57,32 +57,24 @@
 \newcounter{jou}
 \setcounter{jou}{0}
 \newcommand{\@thejou}{\jkansuji\thejou}
-\newcommand{\jou}[2][\vskip -2\myzw]{\par\vskip 1\myzw\noindent\hspace{2.5\myzw} #1%
-\vskip 0\myzw%（）と◯条の間の距離を詰める
+\newcommand{\jou}[2][]{\par\vskip 1\myzw\noindent#1%[\vskip -2\myzw]{\par\vskip 1\myzw\noindent\hspace{2.5\myzw} #1%
 \refstepcounter{jou}%
-{    \leftmargin=1\myzw
-    \labelwidth=\leftmargin
-    \setlength{\labelsep}{1\myzw}
-    \advance \labelwidth by -\labelsep
-    \vskip 0\myzw%宣言することで（）と◯条の間の距離を詰める
-\begin{list}{{第{\@thejou}条}}
-\item #2
-\end{list}}
-\setcounter{kou}{1}\par}
+\begin{description}[leftmargin=0\myzw,labelsep=1\myzw,itemindent=0\myzw,font=\mcfamily,nosep]
+\item[第{\@thejou}条] #2
+\end{description}
+\setcounter{kou}{1}
+\setcounter{edajou}{1}}
 
 %------------------kou
 
 \newcounter{kou}[jou]
 \newcommand{\@thekou}{\jzenkakusuji\thekou}
 \newcommand{\kou}[1]{
-\refstepcounter{kou}\par\noindent
-{   \leftmargin=0\myzw
-    \labelwidth=\leftmargin
-    \setlength{\labelsep}{1\myzw}
-    \advance \labelwidth by -\labelsep
-\begin{list}{\hspace{-1\myzw}{\@thekou}}
-\item #1
-\end{list}}}
+\refstepcounter{kou}
+\begin{description}[leftmargin=0\zw,labelsep=1\zw,itemindent=0\zw,font=\mcfamily,nosep]
+\item[\@thekou] #1
+\end{description}
+\setcounter{edakou}{1}}
 
 %------------------gou
 
@@ -90,34 +82,21 @@
 \newcommand{\@thegou}{\jkansuji\thegou}
 \newcommand{\gou}[1]{
 {\refstepcounter{gou}}
-\vskip 0\myzw
- { \leftmargin=1\myzw
-    \labelwidth=1\myzw
-    \setlength{\labelsep}{1\myzw}
-    \advance \labelwidth by -\labelsep
-
-\begin{list}{{\hspace{0\myzw}\@thegou}}
-%\setlength{\leftskip}{5zw}
-\item #1
-\end{list}}}
+\begin{description}[leftmargin=1\zw,labelsep=1\zw,itemindent=0\zw,font=\mcfamily,nosep]
+\item[\@thegou] #1
+\end{description}
+\setcounter{edagou}{1}}
 %--------------------------------edabangou
 %------------------edajou
 \newcounter{edajou}[jou]
 \setcounter{edajou}{1}
 \newcommand{\@theedajou}{\jkansuji\theedajou}
 
-\newcommand{\edajou}[2][\vskip -2\myzw]{\par\vskip 1\myzw\noindent\hspace{2.5\myzw} #1%
-\vskip 0\myzw%（）と◯条の間の距離を詰める
+\newcommand{\edajou}[2][]{\par\vskip 1\myzw\noindent #1%
 \refstepcounter{edajou}%
-{    \leftmargin=1\myzw
-    \labelwidth=\leftmargin
-    \labelsep=1\myzw
-    \advance \labelwidth by -\labelsep
-    \setlength{\labelsep}{1\myzw}
-    \vskip 0\myzw
-\begin{list}{第{\@thejou}条の\@theedajou}
-\item #2
-\end{list}}}
+\begin{description}[leftmargin=0\myzw,labelsep=1\myzw,itemindent=0\myzw,font=\mcfamily,nosep]
+\item[第{\@thejou}条の\@theedajou] #2
+\end{description}}
 %------------------edahen
 \newcounter{edahen}[hen]
 \setcounter{edahen}{1}
@@ -157,16 +136,12 @@
 %------------------edakou
 
 \newcounter{edakou}[jou]
-\newcommand{\@theedakou}{\jzenkakusuji\theedakou}
-\newcommand{\edakou}[1]{
-\refstepcounter{kou}\par\noindent
-{   \leftmargin=0\myzw
-    \labelwidth=\leftmargin
-    \setlength{\labelsep}{1\myzw}
-    \advance \labelwidth by -\labelsep
-\begin{list}{\hspace{-1\myzw}{\@thekou}の\@theedakou}
-\item #1
-\end{list}}}
+\newcommand{\@theedakou}{\jkakusuji\theedakou}
+\newcommand{\edakou}[1]{%
+\refstepcounter{edakou}
+\begin{description}[leftmargin=0\zw,labelsep=1\zw,itemindent=0\zw,font=\mcfamily,nosep]
+\item[{\@thekou}の\@theedakou] #1
+\end{description}}
 
 %------------------edagou
 
@@ -174,14 +149,10 @@
 \newcommand{\@theedagou}{\jkansuji\theedagou}
 \newcommand{\edagou}[1]{
 {\refstepcounter{edagou}}
-\vskip 0\myzw
- {   \leftmargin=1\myzw
-    \labelwidth=\leftmargin
-    \setlength{\labelsep}{1\myzw}
-    \advance \labelwidth by -\labelsep
-\begin{list}{{\hspace{1\myzw}\@thegouの\@theedagou}}
-\item #1
-\end{list}}}
+\begin{description}[leftmargin=1\zw,labelsep=1\zw,itemindent=0\zw,font=\mcfamily,nosep]
+\item[\@thegouの\@theedagou] #1
+\end{description}
+\setcounter{edagou}{1}}
 
 %--------------------------------sakujo
 \newcommand{\sakujo}[1]{%
